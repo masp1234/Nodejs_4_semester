@@ -1,0 +1,16 @@
+Anatomy of an URL
+
+
+http is the protocol - http://
+localhost is the domain name - localhost
+the thing at the end of the endpoint ?howManyTimes=1 - query string
+
+top level domain ???
+
+2 ways to send data in a get request
+
+protocol domain name endpoint path variable dinosaur query string
+http://localhost/kickdinosaur/:id?howManyTimes=1
+
+
+localhost:8080/something?name="bob" -> after the ? is called a query string
