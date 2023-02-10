@@ -14,7 +14,7 @@ const app = express();
 // console.log(app) logs the instantiated version of the library
 
 // 8080 is the http development port
-app.use(express.json())
+app.use(express.json());
 
 
 // route (entire thing)
@@ -53,6 +53,11 @@ app.get("/bottle/:bottleSize", (req, res) => {
     console.log(req.params)
     res.send({bottleSize: req.params.bottle})
 });
+
+app.post("/package", (req, res) => {
+    console.log(req.body)
+    res.send({body: req.body})
+})
 
 // why json - widely supported and easy to read - makes communication between servers and frontends easy
 // why is it called Javascript Object Notation if it's not the same - because it looks very similar
