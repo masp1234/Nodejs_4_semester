@@ -14,6 +14,7 @@ const app = express();
 // console.log(app) logs the instantiated version of the library
 
 // 8080 is the http development port
+// en callback function er en funktion der bliver sendt med som argument
 app.use(express.json());
 
 
