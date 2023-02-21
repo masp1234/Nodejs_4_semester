@@ -51,6 +51,9 @@ app.put("/api/v1/birds/:id", (req, res) => {
     if (birdIndex < 0) {
         return res.status(404).send({ msg: `The bird with id: ${req.params.id} was not found`});
     };
+    if (!req.body.name || !req.body.averageWeightInGrams) {
+        return res.status(400).send({ msg: `The bird with id: ${req.params.id} can't be updated since either name or average weight is missing`})
+    };
     
     const updatedBird = { id: birds[birdIndex].id, ...req.body};
     birds.splice(birdIndex, 1, updatedBird);
