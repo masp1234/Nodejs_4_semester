@@ -58,6 +58,25 @@ app.get("/bottle/:bottleSize", (req, res) => {
 app.post("/package", (req, res) => {
     console.log(req.body)
     res.send({body: req.body})
+});
+
+app.get("/time", (req, res) => {
+    console.log(new Date())
+    res.send({
+        timeUTC: new Date(),
+        timeLocal: Date(),
+        // time in seconds since 1970
+        unixEpocheTime: Date.now()
+    })
+});
+
+app.get("/time/day", (req, res) => {
+    res.send({ data: new Date().getDay() })
+})
+
+app.get("/time/month", (req, res) => {
+    
+    res.send({ data: new Date().getMonth() })
 })
 
 // why json - widely supported and easy to read - makes communication between servers and frontends easy
