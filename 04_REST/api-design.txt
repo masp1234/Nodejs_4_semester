@@ -1,0 +1,5 @@
+Put is for replacing the resource
+Patch is for partial updates
+
+prefix - bird.id = ++id;
+postfix - bird.id = id++;

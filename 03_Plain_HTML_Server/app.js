@@ -8,6 +8,26 @@ app.use(express.static('public'));
 
 console.log(__dirname)
 
+const tanks = [
+    {
+        name: "Leopard",
+        version: "1",
+        nationality: "russian"
+    },
+    {
+        name: "m1 abrams",
+        version: "m1",
+        nationality: "american"
+    },
+    {
+        name: "tiger 1",
+        version: "t1",
+        nationality: "german"
+    }
+]
+
+let visitorCount = 0;
+
 app.get("/", (req, res) => {
     res.sendFile(__dirname + '/public/frontpage/frontpage.html');
 
@@ -15,6 +35,23 @@ app.get("/", (req, res) => {
 
 app.get("/tanks", (req, res) => {
     res.sendFile(__dirname + '/public/tanks/tanks.html');
+})
+
+app.get("/visitors", (req, res) => {
+    res.sendFile(__dirname + "/public/visitors/visitors.html")
+})
+
+// API
+app.get("/api/tanks", (req, res) => {
+    res.status(200).json(tanks);
+});
+
+app.get("/api/visitors", (req, res) => {
+    res.send({ data: visitorCount })
+})
+
+app.put("/api/visitors", (req, res) => {
+    res.send({ data: ++visitorCount });
 })
 
 

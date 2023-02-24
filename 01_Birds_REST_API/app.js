@@ -2,6 +2,7 @@ const express = require('express');
 
 const app = express();
 
+// Body parsing
 app.use(express.json());
 
 const PORT = 8080;
@@ -26,6 +27,7 @@ const birds = [
 
 let birdsLength = birds.length;
 
+// /api in front to indicate that it's data to be recieved and to seperate frontend and backend maybe??
 app.get("/api/v1/birds", (req, res) => {
     res.status(200).send({ data: birds });
 });
@@ -55,7 +57,8 @@ app.put("/api/v1/birds/:id", (req, res) => {
         return res.status(400).send({ msg: `The bird with id: ${req.params.id} can't be updated since either name or average weight is missing`})
     };
     
-    const updatedBird = { id: birds[birdIndex].id, ...req.body};
+    /* spread ... operator needs to be first, otherwise it will override keys/properties with the same keyname. Having ... last will allow you to update the id, and also create new key-value pairs */
+    const updatedBird = {...req.body, id: birds[birdIndex].id};
     birds.splice(birdIndex, 1, updatedBird);
     res.status(201).send({ data: updatedBird });
 });
@@ -75,11 +78,17 @@ app.patch("/api/v1/birds/:id", (req, res) => {
 });
 
 app.delete("/api/v1/birds/:id", (req, res) => {
+    // bedre end filter, da filter kigger hele arrayet igennem. findIndex stopper når man finder elementet.
     const birdIndex = birds.findIndex(bird => bird.id === Number(req.params.id));
     if (birdIndex < 0) {
         return res.status(404).send({ msg: `The bird with id: ${req.params.id} was not found`});
     };
+    /*
+    Anden måde at gøre det på:
+    returnerer et array, da man kan slette flere på en gang
+    deletedBird = birds.splice(birdIndex, 1)[0];
     // kan ikke bruge birds.filter, da den ikke ændrer på arrayet, men i stedet returnerer et nyt
+    */
     birds.splice(birdIndex, 1);
     res.status(200).send({ msg: `The bird with id: ${req.params.id} was removed successfully`});
 })
