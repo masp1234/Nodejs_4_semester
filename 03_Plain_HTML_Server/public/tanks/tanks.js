@@ -1,6 +1,8 @@
 // can use /api/tanks because it's local??
 const url = 'http://localhost:8080/api';
 
+const { tanks } = require('./tanks.json');
+
 const fetchData = async (url, settings) => {
     let response = await fetch(url, settings);
     let data = await response.json();

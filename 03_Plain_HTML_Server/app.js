@@ -1,5 +1,14 @@
 const express = require('express');
 
+
+// const tankUtils = require("./util/tanks.js");
+
+
+// Destructuring
+const { getTanks, addTank } = require("./util/tanks.js");
+const { getGuards, addGuard } = require("./public/museum-guards/barracks.js");
+
+
 const app = express();
 const PORT = 8080;
 
@@ -8,23 +17,6 @@ app.use(express.static('public'));
 
 console.log(__dirname)
 
-const tanks = [
-    {
-        name: "Leopard",
-        version: "1",
-        nationality: "russian"
-    },
-    {
-        name: "m1 abrams",
-        version: "m1",
-        nationality: "american"
-    },
-    {
-        name: "tiger 1",
-        version: "t1",
-        nationality: "german"
-    }
-]
 
 let visitorCount = 0;
 
@@ -54,6 +46,16 @@ app.put("/api/visitors", (req, res) => {
     res.send({ data: ++visitorCount });
 })
 
+app.get("/museum-guards", (req, res) => {
+    res.sendFile(__dirname + "/public/museum-guards/museum-guards.html");
+});
+
+app.get("/guards", (req, res) => {
+    res.status(200).send(getGuards);
+})
+
+
+
 
 // error is undefined if there is no error. if there is an error it will be an object, and then the if will run
 app.listen(PORT, (error) => {
@@ -62,6 +64,7 @@ app.listen(PORT, (error) => {
         return;
     }
     console.log('Server is listening on port', PORT);
+    console.log(getGuards())
 })
 
 /* falsy values: tjek falsy values */
