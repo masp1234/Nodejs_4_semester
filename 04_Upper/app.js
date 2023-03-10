@@ -13,18 +13,25 @@ import path from "path";
 // having an endpoint that sends a html page would still work without serving the public folder, but the css and js would not work. only if you map them in the endpoint as well
 app.use(express.static('public'));
 
+
+// no __dirname in ecmascript module, so have to use path package or something similar
 app.get("/", (req, res) => {
     res.sendFile(path.resolve("public/pages/frontpage/frontpage.html"));
 })
 
 app.get("/IRLQuests", (req, res) => {
-    res.sendFile(path.resolve("public/pages/irl-quests/irl-quests.hmtl"));
+    res.sendFile(path.resolve("public/pages/irl-quests/irl-quests.html"));
+
 
     /*
     strings to be concatenated if you pass an array of strings. No reason to do it this way. Slower and more awkward
     path.resolve("public", "pages", "irl-quests", "irl-quests.html")
 
     */
+});
+
+app.get("/jokes", (req, res) => {
+    res.sendFile(path.resolve('public/pages/jokes/jokes.html'));
 })
 
 
