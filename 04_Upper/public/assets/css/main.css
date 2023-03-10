@@ -1,0 +1,20 @@
+body {
+    /*
+    allowed to grow beyond 100vh, but it can't go below
+    */
+    min-height: 100vh;
+    display: flex;
+    background-color: blue;
+    flex-direction: column;
+}
+
+#logo {
+    /*
+    em is relative. better than using pixels
+    */
+    max-width: 5em;
+}
+
+main {
+    flex: 1
+}
