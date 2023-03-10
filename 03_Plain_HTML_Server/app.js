@@ -35,7 +35,7 @@ app.get("/visitors", (req, res) => {
 
 // API
 app.get("/api/tanks", (req, res) => {
-    res.status(200).json(tanks);
+    res.status(200).json(getTanks());
 });
 
 app.get("/api/visitors", (req, res) => {
@@ -51,7 +51,15 @@ app.get("/museum-guards", (req, res) => {
 });
 
 app.get("/guards", (req, res) => {
-    res.status(200).send(getGuards);
+    res.status(200).send({ hello: true });
+});
+
+app.get("/api/guards", (req, res) => {
+    // req.query is an object that contains key-value pairs
+    if (req.query.passport === 'secret') {
+        return res.redirect('/museum-guards')
+    }
+    res.send({ message: 'passport is wrong' })
 })
 
 
