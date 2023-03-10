@@ -16,6 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "sentiment": "^5.0.2"
+    "sentiment": "^5.0.2",
+    "express": "^4.18.2"
   }
 }
