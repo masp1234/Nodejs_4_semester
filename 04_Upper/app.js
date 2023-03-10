@@ -10,6 +10,7 @@ import jokes from "./util/jokes.js";
 import path from "path";
 // you can write the path without making an endpoint, but it's ugly and not something you should do
 // if you dont serve the public folder, you would have to map css, audio, images etc to each endpoint
+// having an endpoint that sends a html page would still work without serving the public folder, but the css and js would not work. only if you map them in the endpoint as well
 app.use(express.static('public'));
 
 app.get("/", (req, res) => {

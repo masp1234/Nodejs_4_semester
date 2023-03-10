@@ -64,7 +64,7 @@ app.listen(PORT, (error) => {
         return;
     }
     console.log('Server is listening on port', PORT);
-    console.log(getGuards())
+    
 })
 
 /* falsy values: tjek falsy values */

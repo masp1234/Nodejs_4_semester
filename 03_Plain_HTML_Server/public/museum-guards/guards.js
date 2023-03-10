@@ -1,4 +1,4 @@
-import barracks from "./barracks.js"
+const barracks = require("./barracks.js");
 
 console.log(barracks.guards);
 
