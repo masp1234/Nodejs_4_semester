@@ -55,13 +55,3 @@ function listen (port, callback) {
         if (callback) callback(error);
     }
 };
-// how the callback gets the error
-function listen (port, callback) {
-    try {
-        // starting the server
-        if (callback) callback();
-    }
-    catch (error) {
-        if (callback) callback(error);
-    }
-};
