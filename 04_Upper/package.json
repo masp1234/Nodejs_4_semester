@@ -14,5 +14,8 @@
     "quotes"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "sentiment": "^5.0.2"
+  }
 }

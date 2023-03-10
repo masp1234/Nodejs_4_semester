@@ -7,6 +7,7 @@ const app = express();
 const PORT = 8080;
 
 import jokes from "./util/jokes.js";
+console.log(await jokes.getJoke());
 import path from "path";
 // you can write the path without making an endpoint, but it's ugly and not something you should do
 // if you dont serve the public folder, you would have to map css, audio, images etc to each endpoint
