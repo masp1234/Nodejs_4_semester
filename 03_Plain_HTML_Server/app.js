@@ -33,6 +33,8 @@ app.get("/visitors", (req, res) => {
     res.sendFile(__dirname + "/public/visitors/visitors.html")
 })
 
+
+
 // API
 app.get("/api/tanks", (req, res) => {
     res.status(200).json(getTanks());

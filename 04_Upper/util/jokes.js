@@ -19,6 +19,6 @@ const getJoke = async () => {
     }
 }
 
-export default {
+export {
     getJoke
 } 

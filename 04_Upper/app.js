@@ -1,13 +1,32 @@
 // "express" is the name of the folder in node_modules
 
 import express from "express";
+import fs from 'fs';
+
+// components
+const navbar = fs.readFileSync('./public/components/navbar/navbar.html').toString();
+const footer = fs.readFileSync('./public/components/footer/footer.html')
+console.log(navbar);
+
+// pages
+// readfileSync returns a buffer that we need to turn into a string
+const frontpage = fs.readFileSync('./public/pages/frontpage/frontpage.html').toString();
+const irlQuests = fs.readFileSync('./public/pages/irl-quests/irl-quests.html').toString();
+const jokes = fs.readFileSync('./public/pages/jokes/jokes.html').toString();
+
+
+// constructed pages
+// this only constructs the frontPagePage once, when the server is started, instead of constructing it by concatenating every request
+const frontPagePage = navbar + frontpage + footer;
+const irlsQuestsPage = navbar + irlQuests + footer;
+const jokesPage = navbar + jokes + footer;
 
 const app = express();
 
 const PORT = 8080;
 
-import jokes from "./util/jokes.js";
-console.log(await jokes.getJoke());
+import { getJoke } from "./util/jokes.js";
+//console.log(await jokes.getJoke());
 import path from "path";
 // you can write the path without making an endpoint, but it's ugly and not something you should do
 // if you dont serve the public folder, you would have to map css, audio, images etc to each endpoint
@@ -17,11 +36,11 @@ app.use(express.static('public'));
 
 // no __dirname in ecmascript module, so have to use path package or something similar
 app.get("/", (req, res) => {
-    res.sendFile(path.resolve("public/pages/frontpage/frontpage.html"));
+    res.send(frontPagePage);
 })
 
 app.get("/IRLQuests", (req, res) => {
-    res.sendFile(path.resolve("public/pages/irl-quests/irl-quests.html"));
+    res.send(irlsQuestsPage);
 
 
     /*
@@ -32,7 +51,7 @@ app.get("/IRLQuests", (req, res) => {
 });
 
 app.get("/jokes", (req, res) => {
-    res.sendFile(path.resolve('public/pages/jokes/jokes.html'));
+    res.send(jokesPage);
 })
 
 
