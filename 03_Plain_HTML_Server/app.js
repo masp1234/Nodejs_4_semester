@@ -50,6 +50,13 @@ app.get("/museum-guards", (req, res) => {
     res.sendFile(__dirname + "/public/museum-guards/museum-guards.html");
 });
 
+app.get("/proxy", async (req, res) => {
+    const response = await fetch('https://google.com');
+    const data = await response.text();
+    console.log(data)
+    res.send(data)
+})
+
 app.get("/guards", (req, res) => {
     res.status(200).send({ hello: true });
 });
