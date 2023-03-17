@@ -1,25 +1,20 @@
 // "express" is the name of the folder in node_modules
-
+import{ renderPage, readPage } from './util/template-engine.js'
 import express from "express";
-import fs from 'fs';
-
-// components
-const navbar = fs.readFileSync('./public/components/navbar/navbar.html').toString();
-const footer = fs.readFileSync('./public/components/footer/footer.html')
-console.log(navbar);
-
-// pages
-// readfileSync returns a buffer that we need to turn into a string
-const frontpage = fs.readFileSync('./public/pages/frontpage/frontpage.html').toString();
-const irlQuests = fs.readFileSync('./public/pages/irl-quests/irl-quests.html').toString();
-const jokes = fs.readFileSync('./public/pages/jokes/jokes.html').toString();
-
+// main css repeats on all pages, so css link is for specific css
+const frontpagePath = './public/pages/frontpage/frontpage.html'
 
 // constructed pages
 // this only constructs the frontPagePage once, when the server is started, instead of constructing it by concatenating every request
-const frontPagePage = navbar + frontpage + footer;
-const irlsQuestsPage = navbar + irlQuests + footer;
-const jokesPage = navbar + jokes + footer;
+const frontPagePage = renderPage(readPage(frontpagePath), {
+    tabTitle: 'Frontpage'
+});
+
+
+const irlsQuestsPage = renderPage(readPage('./public/pages/irl-quests/irl-quests.html'), {
+    tabTitle: 'IRL-Quests',
+    cssLinks: ['<link rel="stylesheet" href="/pages/irl-quests/irl-quests.css">']
+})
 
 const app = express();
 
@@ -50,7 +45,12 @@ app.get("/IRLQuests", (req, res) => {
     */
 });
 
-app.get("/jokes", (req, res) => {
+app.get("/jokes", async (req, res) => {
+    const joke = await getJoke();
+    const jokes = readPage('./public/pages/jokes/jokes.html').replace("$JOKE", JSON.stringify(joke))
+    const jokesPage = renderPage(jokes, {
+        tabTitle: 'Jokes'
+    })
     res.send(jokesPage);
 })
 
