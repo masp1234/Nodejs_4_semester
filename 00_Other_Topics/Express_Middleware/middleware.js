@@ -3,8 +3,6 @@ import { logger } from './util/logger.js'
 
 const app = express()
 
-app.use(logger);
-
 const middlewareFunction1 = (req, res, next) => {
     console.log('this is middleware function 1')
     next()
@@ -23,12 +21,20 @@ const messStringUp = (req, res, next) => {
     next()
 }
 
+app.use(middlewareFunction3);
+app.use(logger);
+app.use(middlewareFunction2);
+app.use(middlewareFunction1);
+
+
+
+
 app.get('/test', messStringUp, (req, res, next) => {
     console.log(req.query)
     res.send('hello')
 })
 
-app.get('/', middlewareFunction1, middlewareFunction2, middlewareFunction3, (req, res, next) => {
+app.get('/', (req, res, next) => {
     console.log(req.query)
     res.send('<h1>Hello</h1>')
 })
