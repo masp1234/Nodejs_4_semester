@@ -1,13 +1,15 @@
-async function getActivities() {
-    const response = await fetch("https://www.boredapi.com/api/activity")
+
+
+async function getActivities(activityQueryString="") {
+    const response = await fetch("https://www.boredapi.com/api/activity" + activityQueryString)
     const data = await response.json()
-    return data
-  }
-  
-async function displayActivities() {
-    const data = await getActivities()
     console.log(data)
-    // 
     document.getElementById("quest").innerText = data.activity
   }
-  displayActivities()
+  
+
+getActivities()
+
+  document.getElementById('activity-dropdown-submit').addEventListener("click", async () => {
+    getActivities("?type=" + document.getElementById('activity-dropdown').value)
+  })

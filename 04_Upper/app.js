@@ -16,9 +16,13 @@ const irlsQuestsPage = renderPage(readPage('./public/pages/irl-quests/irl-quests
     cssLinks: ['<link rel="stylesheet" href="/pages/irl-quests/irl-quests.css">']
 })
 
+
+
 const app = express();
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
+
+app.use(express.urlencoded({ extended:true}))
 
 import { getJoke } from "./util/jokes.js";
 //console.log(await jokes.getJoke());
@@ -54,6 +58,21 @@ app.get("/jokes", async (req, res) => {
     res.send(jokesPage);
 })
 
+app.get("/contact", (req, res) => {
+    const contact = readPage('./public/pages/contact/contact.html')
+    const contactPage = renderPage(contact, {
+        tabTitle: 'Contact'
+    })
+    res.send(contactPage)
+})
+
+// API
+
+app.post("/api/contact", (req, res) => {
+    console.log(req.body)
+
+   // res.redirect('/')
+})
 
 app.listen(PORT, error => {
     if (error) {
