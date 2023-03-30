@@ -1,7 +1,10 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const session = require('express-session')
-const MongoStore = require('connect-mongo')(session)
+import express from 'express'
+import mongoose from 'mongoose'
+import session from 'express-session'
+import MongoStore from 'connect-mongo'
+
+MongoStore.apply(session)
+//const MongoStore = require('connect-mongo')(session)
 
 
 const app = express()
