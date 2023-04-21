@@ -6,6 +6,7 @@
   import Home from './components/Home/Home.svelte';
   import Pibling from './components/Pibling/Pibling.svelte';
 
+  // mounts only once when the page is loaded - only want fetch to happen once
   onMount(async () => {
     const registerURL = `${$BASE_URL}/gotham/batman?hobby=catching the bad guys`;
     const registerResponse = await fetch(registerURL, {
