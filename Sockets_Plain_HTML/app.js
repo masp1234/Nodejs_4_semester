@@ -15,11 +15,24 @@ const io = new Server(server)
 
 io.on('connection', (socket) => {
     console.log('A client connected', socket.id)
+
+    socket.on('ready event', (data) => {
+        console.log('ready event', data)
+    })
+    
+    socket.on('send color', (data) => {
+        // only emits to the socket itself. try opening more tabs to test
+        // socket.emit('a color was chosen', data)
+
+        // sends to all EXCEPT for the socket (client) itself
+
+        // in a game, it's useful to update the state immediately, for example position and then broadcast the event to everyone else
+        socket.broadcast.emit('a color was chosen', data)
+        console.log(data.data)
+    })
 })
 
-io.on('ready event', (data) => {
-    console.log('ready event', data)
-})
+
 
 const PORT = process.env.PORT || 8080
 server.listen(PORT, (error) => {
@@ -27,3 +40,9 @@ server.listen(PORT, (error) => {
     console.log('The server is listening on port: ' + PORT)
 
 })
+
+
+/// rooms
+
+// namespaces
+// default namespace is called io, contains all the namespaces - global namespace

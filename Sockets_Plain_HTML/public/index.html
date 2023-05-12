@@ -8,8 +8,8 @@
 </head>
 <body>
     <h1>Pick a color</h1>
-    <input type="color">
-    <button>Send the color</button>
+    <input id='color-input' type="color">
+    <button id="color-button">Send the color</button>
 
     <!--Very weird-->
     <script src="/socket.io/socket.io.js"></script>
@@ -17,6 +17,17 @@
     <script>
         // it's served on the same origin, so no need to specify
         const socket = io()
+        // will only get the colorPicker once, so it's better to save this reference, instead of getting it each time the eventlistener function runs
+        const colorPicker = document.getElementById('color-input')
+        document.getElementById('color-button').addEventListener('click', () => {
+            console.log('test')
+            socket.emit('send color', { data: colorPicker.value })
+        })
+
+        socket.on('a color was chosen', (data) => {
+            document.body.style.backgroundColor = data.data
+            console.log(data)
+        })
 
         // stick to one way - send json with a data key. not needed but advice from anders
         socket.emit('ready event', { data: 'I am ready'})
